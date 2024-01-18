@@ -93,13 +93,14 @@ class ThreadController extends Controller
 
     public function edit(Thread $thread)
     {
-        // Check if the current user is the author of the thread
-        if (auth()->check() && auth()->user()->id == $thread->user_id) {
+        // Check if the user is either the thread's author or an admin
+        if (auth()->check() && (auth()->user()->id == $thread->user_id || auth()->user()->isAdmin())) {
             return view('edit', compact('thread'));
         } else {
             return redirect()->route('threads.index')->with('error', 'You are not authorized to edit this thread.');
         }
     }
+
 
     public function destroy(Thread $thread)
     {

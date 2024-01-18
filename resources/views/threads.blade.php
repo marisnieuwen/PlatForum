@@ -28,7 +28,7 @@
         <button type="submit">Filter</button>
     </form>
 
-    <table class="table">
+    <!-- <table class="table">
         <thead>
             <tr>
                 <th>Title</th>
@@ -40,34 +40,41 @@
                 <th>Actions</th>
                 @endif
             </tr>
-        </thead>
-        <tbody>
-            @foreach($threads as $thread)
-            <tr>
-                <td><a href="{{ route('threads.show', $thread->id) }}">{{ $thread->title }}</a></td>
-                <td>{{ $thread->user->name }}</td>
-                <td>{{ $thread->category->name }}</td>
-                <td>{{ $thread->rank }}</td>
-                <td>{{ $thread->created_at }}</td>
-                @if (auth()->check() && (auth()->user()->hasRole('Admin') || auth()->user()->id == $thread->user_id))
-                <td>
-                    <a href="{{ route('threads.edit', $thread->id) }}" class="btn btn-primary">Edit</a>
-                    <form action="{{ route('threads.destroy', $thread->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-                @endif
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+        </thead> -->
+    <!-- <tbody> -->
+    <div class="row">
+        @foreach($threads as $thread)
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{{ route('threads.show', $thread->id) }}">{{ $thread->title }}</a>
+                    </h5>
+                    <p class="card-text"><strong>Author:</strong> {{ $thread->user->name }}</p>
+                    <p class="card-text"><strong>Category:</strong> {{ $thread->category->name }}</p>
+                    <p class="card-text"><strong>Rank:</strong> {{ $thread->rank }}</p>
+                    <p class="card-text"><strong>Posted At:</strong> {{ $thread->created_at }}</p>
+                    @if (auth()->check() && (auth()->user()->hasRole('Admin') || auth()->user()->id ==
+                    $thread->user_id))
+                    <div class="d-flex justify-content-start">
+                        <a href="{{ route('threads.edit', $thread->id) }}" class="btn btn-primary me-2">Edit</a>
+                        <form action="{{ route('threads.destroy', $thread->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
     @auth
     <!-- Check if the user is authenticated -->
     <a href="{{ route('threads.create') }}" class="btn btn-primary">Create New Thread</a>
     @else
     <a href="{{ route('login') }}" class="btn btn-primary">Login to Create New Thread</a>
     @endauth
+</div>
 </div>
 @endsection

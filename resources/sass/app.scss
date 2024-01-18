@@ -6,3 +6,27 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+
+.thread-card {
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.thread-card .card-body {
+    padding: 15px;
+}
+
+.thread-card .card-title a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.thread-card .card-title a:hover {
+    text-decoration: underline;
+}
+
+.thread-card .card-text {
+    margin-bottom: 10px;
+}
