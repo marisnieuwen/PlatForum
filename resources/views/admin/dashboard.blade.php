@@ -39,7 +39,7 @@
                             <input type="checkbox" class="custom-control-input" id="customSwitchAdmin{{ $user->id }}"
                                 {{ $user->is_admin ? 'checked' : '' }} onchange="this.form.submit()">
                             <label class="custom-control-label" for="customSwitchAdmin{{ $user->id }}">
-                                <span class="toggle-text">{{ $user->is_admin ? 'Remove Admin' : 'Make Admin' }}</span>
+                                <span class="toggle-text">{{ $user->is_admin ? 'Admin' : 'Make Admin' }}</span>
                             </label>
                         </div>
                     </form>
