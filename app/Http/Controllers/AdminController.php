@@ -21,27 +21,42 @@ class AdminController extends Controller
     public function manageCategories()
     {
         $categories = Category::all();
-        return view('admin.categories.index', ['categories' => $categories]);
+        return view('admin.categories.index', compact('categories'));
     }
+
+    public function storeCategory(Request $request)
+    {
+        $request->validate(['name' => 'required|unique:categories']);
+        Category::create($request->only('name'));
+        return back()->with('success', 'Category added successfully');
+    }
+
+    public function deleteCategory(Category $category)
+    {
+        $category->delete();
+        return back()->with('success', 'Category deleted successfully');
+    }
+
 
     // Admin view for managing user profiles
     public function manageUsers()
     {
         $users = User::all();
-        return view('admin.users.index', ['users' => $users]);
+        return view('admin.users.index', compact('users'));
     }
 
-    public function deleteUser($userId)
+    public function banUser(User $user)
     {
-        $user = User::find($userId);
+        // Implement banning logic
+        $user->is_banned = true; // Example field
+        $user->save();
+        return back()->with('success', 'User banned successfully');
+    }
 
-        if (!$user) {
-            return redirect()->route('admin.users')->with('error', 'User not found');
-        }
-
+    public function deleteUser(User $user)
+    {
         $user->delete();
-
-        return redirect()->route('admin.users')->with('success', 'User deleted successfully');
+        return back()->with('success', 'User deleted successfully');
     }
 
 

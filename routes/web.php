@@ -22,6 +22,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [App\Http\Controllers\ThreadController::class, 'index'])->name('threads.index');
 
+
 Route::post('/threads', [ThreadController::class, 'store'])->name('threads.store');
 Route::get('/threads/create', [ThreadController::class, 'create'])->name('threads.create');
 Route::get('/threads/{thread}', [ThreadController::class, 'show'])->name('threads.show');
@@ -35,8 +36,15 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/admin/categories', [AdminController::class, 'manageCategories'])->name('admin.categories');
+    // Dashboard
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+    // Users
     Route::get('/admin/users', [AdminController::class, 'manageUsers'])->name('admin.users');
+    Route::post('/admin/users/{user}/ban', [AdminController::class, 'banUser'])->name('admin.banUser');
     Route::delete('/admin/users/{user}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
+    // Categories
+    Route::get('/admin/categories', [AdminController::class, 'manageCategories'])->name('admin.categories');
+    Route::post('/admin/categories', [AdminController::class, 'storeCategory'])->name('admin.storeCategory');
+    Route::delete('/admin/categories/{category}', [AdminController::class, 'deleteCategory'])->name('admin.deleteCategory');
 });
