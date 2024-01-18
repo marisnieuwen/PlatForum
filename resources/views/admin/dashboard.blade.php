@@ -19,6 +19,7 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->is_active ? 'Active' : 'Inactive' }}</td>
                 <td>
+                    @if(auth()->id() !== $user->id)
                     <form action="{{ route('admin.toggleBan', $user->id) }}" method="POST">
                         @csrf
                         <div class="custom-control custom-switch">
@@ -29,20 +30,24 @@
                             </label>
                         </div>
                     </form>
+                    @endif
                     </form>
                     <form action="{{ route('admin.toggleBan', $user->id) }}" method="POST">
                         @csrf
                     </form>
+                    @if(auth()->id() !== $user->id)
                     <form action="{{ route('admin.toggleAdmin', $user->id) }}" method="POST">
                         @csrf
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="customSwitchAdmin{{ $user->id }}"
-                                {{ $user->is_admin ? 'checked' : '' }} onchange="this.form.submit()">
+                                {{ $user->hasRole('Admin') ? 'checked' : '' }} onchange="this.form.submit()">
                             <label class="custom-control-label" for="customSwitchAdmin{{ $user->id }}">
-                                <span class="toggle-text">{{ $user->is_admin ? 'Admin' : 'Make Admin' }}</span>
+                                <span
+                                    class="toggle-text">{{ $user->hasRole('Admin') ? 'Remove Admin' : 'Make Admin' }}</span>
                             </label>
                         </div>
                     </form>
+                    @endif
                 </td>
             </tr>
             @endforeach
