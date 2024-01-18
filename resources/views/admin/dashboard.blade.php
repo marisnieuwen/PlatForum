@@ -19,12 +19,16 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->is_active ? 'Active' : 'Inactive' }}</td>
                 <td>
-                    <a href="{{ route('admin.toggleActive', $user->id) }}" class="btn btn-primary">
-                        {{ $user->is_active ? 'Deactivate' : 'Activate' }}
-                    </a>
-                    <a href="{{ route('admin.toggleBan', $user->id) }}" class="btn btn-warning">
-                        {{ $user->is_banned ? 'Unban' : 'Ban' }}
-                    </a>
+                    <form action="{{ route('admin.toggleBan', $user->id) }}" method="POST">
+                        @csrf
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="customSwitchBan{{ $user->id }}" {{ $user->is_banned ? 'checked' : '' }} onchange="updateToggleText(this)">
+                            <label class="custom-control-label" for="customSwitchBan{{ $user->id }}">
+                                <span class="toggle-text">{{ $user->is_banned ? 'Banned' : 'Ban' }}</span>
+                            </label>
+                        </div>
+                    </form>
+
                     <a href="{{ route('admin.toggleAdmin', $user->id) }}" class="btn btn-danger">
                         {{ $user->is_admin ? 'Remove Admin' : 'Make Admin' }}
                     </a>
