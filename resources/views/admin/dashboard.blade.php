@@ -22,20 +22,48 @@
                     <form action="{{ route('admin.toggleBan', $user->id) }}" method="POST">
                         @csrf
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitchBan{{ $user->id }}" {{ $user->is_banned ? 'checked' : '' }} onchange="updateToggleText(this)">
-                            <label class="custom-control-label" for="customSwitchBan{{ $user->id }}">
-                                <span class="toggle-text">{{ $user->is_banned ? 'Banned' : 'Ban' }}</span>
+                            <input type="checkbox" class="custom-control-input" id="customSwitchBan{{ $user->id }}"
+                                {{ $user->is_banned ? 'checked' : '' }} onchange="this.form.submit()">
+                            <label class="custom-control-label" for="customSwitchBan{{ $user->id }}"> <span
+                                    class="toggle-text">{{ $user->is_banned ? 'Unban' : 'Ban' }}</span>
                             </label>
                         </div>
                     </form>
-
-                    <a href="{{ route('admin.toggleAdmin', $user->id) }}" class="btn btn-danger">
-                        {{ $user->is_admin ? 'Remove Admin' : 'Make Admin' }}
-                    </a>
+                    </form>
+                    <form action="{{ route('admin.toggleBan', $user->id) }}" method="POST">
+                        @csrf
+                    </form>
+                    <form action="{{ route('admin.toggleAdmin', $user->id) }}" method="POST">
+                        @csrf
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="customSwitchAdmin{{ $user->id }}"
+                                {{ $user->is_admin ? 'checked' : '' }} onchange="this.form.submit()">
+                            <label class="custom-control-label" for="customSwitchAdmin{{ $user->id }}">
+                                <span class="toggle-text">{{ $user->is_admin ? 'Remove Admin' : 'Make Admin' }}</span>
+                            </label>
+                        </div>
+                    </form>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
 </div>
+@endsection
+
+
+
+@section('scripts')
+<script>
+function updateToggleText(element) {
+    let label = element.nextElementSibling;
+    let textSpan = label.querySelector('.toggle-text');
+
+    if (element.checked) {
+        textSpan.textContent = 'Unban';
+    } else {
+        textSpan.textContent = 'Ban';
+    }
+}
+</script>
 @endsection

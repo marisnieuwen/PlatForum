@@ -39,5 +39,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/toggle-active/{user}', [AdminController::class, 'toggleActive'])->name('admin.toggleActive');
     Route::get('/admin/toggle-ban/{user}', [AdminController::class, 'toggleBan'])->name('admin.toggleBan');
+    Route::post('/admin/toggle-ban/{user}', [AdminController::class, 'toggleBan'])->name('admin.toggleBan');
     Route::get('/admin/toggle-admin/{user}', [AdminController::class, 'toggleAdmin'])->name('admin.toggleAdmin');
+    Route::post('/admin/toggle-admin/{user}', [AdminController::class, 'toggleAdmin'])->name('admin.toggleAdmin');
 });

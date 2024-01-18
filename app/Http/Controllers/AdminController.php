@@ -18,33 +18,32 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('users'));
     }
 
-    // Admin view for managing categories
-    // Methods to update user status
-    public function toggleActive($userId)
-    {
-        $user = User::find($userId);
-        $user->is_active = !$user->is_active;
-        $user->save();
 
-        return back()->with('success', 'User status updated.');
-    }
+    // public function toggleActive($userId)
+    // {
+    //     $user = User::find($userId);
+    //     $user->is_active = !$user->is_active;
+    //     $user->save();
+
+    //     return back()->with('success', 'User status updated.');
+    // }
 
     public function toggleBan($userId)
     {
-        $user = User::find($userId);
+        $user = User::findOrFail($userId);
         $user->is_banned = !$user->is_banned;
         $user->save();
 
-        return back()->with('success', 'User ban status updated.');
+        return back()->with('success', 'Ban status updated.');
     }
 
     public function toggleAdmin($userId)
     {
-        $user = User::find($userId);
-        $user->is_admin = !$user->is_admin; // Assume you have an `is_admin` field or similar
+        $user = User::findOrFail($userId);
+        $user->is_admin = !$user->is_admin;
         $user->save();
 
-        return back()->with('success', 'User admin status updated.');
+        return back()->with('success', 'Admin status updated.');
     }
 
     public function manageThreads()
