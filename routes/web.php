@@ -36,15 +36,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    // Dashboard
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-
-    // Users
-    Route::get('/admin/users', [AdminController::class, 'manageUsers'])->name('admin.users');
-    Route::post('/admin/users/{user}/ban', [AdminController::class, 'banUser'])->name('admin.banUser');
-    Route::delete('/admin/users/{user}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
-    // Categories
-    Route::get('/admin/categories', [AdminController::class, 'manageCategories'])->name('admin.categories');
-    Route::post('/admin/categories', [AdminController::class, 'storeCategory'])->name('admin.storeCategory');
-    Route::delete('/admin/categories/{category}', [AdminController::class, 'deleteCategory'])->name('admin.deleteCategory');
+    Route::get('/admin/toggle-active/{user}', [AdminController::class, 'toggleActive'])->name('admin.toggleActive');
+    Route::get('/admin/toggle-ban/{user}', [AdminController::class, 'toggleBan'])->name('admin.toggleBan');
+    Route::get('/admin/toggle-admin/{user}', [AdminController::class, 'toggleAdmin'])->name('admin.toggleAdmin');
 });

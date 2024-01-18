@@ -14,58 +14,37 @@ class AdminController extends Controller
     // Admin dashboard
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $users = User::all();
+        return view('admin.dashboard', compact('users'));
     }
 
     // Admin view for managing categories
-    public function manageCategories()
-    {
-        $categories = Category::all();
-        return view('admin.categories.index', compact('categories'));
-    }
-
-    public function storeCategory(Request $request)
-    {
-        $request->validate(['name' => 'required|unique:categories']);
-        Category::create($request->only('name'));
-        return back()->with('success', 'Category added successfully');
-    }
-
-    public function deleteCategory(Category $category)
-    {
-        $category->delete();
-        return back()->with('success', 'Category deleted successfully');
-    }
-
-
-    // Admin view for managing user profiles
-    public function manageUsers()
-    {
-        $users = User::all();
-        return view('admin.users.index', compact('users'));
-    }
-
-    public function banUser(User $user)
-    {
-        // Implement banning logic
-        $user->is_banned = true; // Example field
-        $user->save();
-        return back()->with('success', 'User banned successfully');
-    }
-
-    public function deleteUser(User $user)
-    {
-        $user->delete();
-        return back()->with('success', 'User deleted successfully');
-    }
-
-
-    public function assignAdminRole($userId)
+    // Methods to update user status
+    public function toggleActive($userId)
     {
         $user = User::find($userId);
-        $adminRole = Role::where('name', 'Admin')->first();
-        $user->roles()->attach($adminRole);
-        return 'Admin role assigned to the user.';
+        $user->is_active = !$user->is_active;
+        $user->save();
+
+        return back()->with('success', 'User status updated.');
+    }
+
+    public function toggleBan($userId)
+    {
+        $user = User::find($userId);
+        $user->is_banned = !$user->is_banned;
+        $user->save();
+
+        return back()->with('success', 'User ban status updated.');
+    }
+
+    public function toggleAdmin($userId)
+    {
+        $user = User::find($userId);
+        $user->is_admin = !$user->is_admin; // Assume you have an `is_admin` field or similar
+        $user->save();
+
+        return back()->with('success', 'User admin status updated.');
     }
 
     public function manageThreads()
