@@ -9,6 +9,7 @@
         <select name="category_id" id="category">
             <option value="">All Categories</option>
             @foreach($categories as $category)
+            <!-- Shows selected option once filtered -->
             <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
                 {{ $category->name }}
             </option>
@@ -19,6 +20,7 @@
         <select name="rank" id="rank">
             <option value="">All Ranks</option>
             @foreach($ranks as $rank)
+            <!-- Shows selected option once filtered -->
             <option value="{{ $rank }}" {{ request('rank') == $rank ? 'selected' : '' }}>{{ $rank }}</option>
             @endforeach
         </select>
@@ -55,8 +57,6 @@
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
-
-
                 </td>
                 @endif
             </tr>
