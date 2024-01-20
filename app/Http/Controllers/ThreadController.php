@@ -69,11 +69,6 @@ class ThreadController extends Controller
             return redirect()->route('login')->with('error', 'You must be logged in to create a thread.');
         }
 
-        // Check if the user has liked at least 5 different threads
-        $likedThreadCount = auth()->user()->likes->groupBy('thread_id')->count();
-        if ($likedThreadCount < 5) {
-            return back()->with('error', 'You must have liked at least 5 different threads to create a new one.');
-        }
 
         // Step 1: Define validation rules
         $rules = [
