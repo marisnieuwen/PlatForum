@@ -62,9 +62,20 @@
         </div>
         @endforeach
     </div>
+    <!-- Check if user is logged in, otherwise tell user to log in -->
+    <!-- Check if user has required amount of likes -->
     @auth
-    <!-- Check if the user is logged in, otherwise tell the user to log in -->
+    @php
+    $userLikesCount = auth()->user()->likes->count();
+    $minimumLikesRequired = 5;
+    @endphp
+
+    @if($userLikesCount >= $minimumLikesRequired)
     <a href="{{ route('threads.create') }}" class="btn btn-primary">Create New Thread</a>
+    @else
+    <p class="alert alert-warning">You need at least {{ $minimumLikesRequired }} likes to create a new thread. You
+        currently have {{ $userLikesCount }} likes.</p>
+    @endif
     @else
     <a href="{{ route('login') }}" class="btn btn-primary">Login to Create New Thread</a>
     @endauth

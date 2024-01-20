@@ -31,7 +31,7 @@
             </button>
         </form>
         @endif
-        <span class="like-count">{{ $thread->likes->count() }}</span> Likes
+        <div class="like-count">{{ $thread->likes->count() }}</div> Likes
     </div>
     @endauth
 </div>
