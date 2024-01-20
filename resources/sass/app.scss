@@ -34,6 +34,24 @@ body {
     color: #FEFEFE;
 }
 
+.admin-buttons {
+    margin-top: 30px;
+}
+
+.card-footer {
+    background-color: #292929;
+    color: #FEFEFE;
+    // padding: 20px;
+}
+
+.btn-primary {
+    background-color: #ff4655;
+    border-color: #ff4655;
+    color: #ffffff;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
 .content-container {
     background-color: #292929;
     padding: 20px;
@@ -141,4 +159,74 @@ body {
     font-weight: bold;
     font-size: 18px;
     margin-right: 7px;
+}
+
+/* Styling for drowpdown menus */
+select#category,
+select#rank {
+    background-color: #292929;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+
+select#category option,
+select#rank option {
+    background-color: #292929;
+    color: #ffffff;
+    padding: 5px;
+}
+
+/* Filter button */
+button.btn-success {
+    background-color: #ff4655;
+    border-color: #ff4655;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-weight: bold;
+}
+
+button.btn-success:hover,
+button.btn-success:focus {
+    background-color: #ff2e3e;
+    border-color: #ff2e3e;
+}
+
+.create-card {
+    background-color: #292929;
+    color: #FEFEFE;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #292929;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.form-control {
+    background-color: #292929;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.form-control:focus {
+    border-color: #ff4655;
+}
+
+/* Hover and focus styles for the Create Thread button */
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #ff2e3e;
+    border-color: #ff2e3e;
 }

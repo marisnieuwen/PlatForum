@@ -44,8 +44,8 @@
 
                     @if (auth()->check() && (auth()->user()->hasRole('Admin') || auth()->user()->id ==
                     $thread->user_id))
-                    <div class="mt-auto d-flex justify-content-between">
-                        <a href="{{ route('threads.edit', $thread->id) }}" class="btn btn-primary me-2">Edit</a>
+                    <div class="d-flex justify-content-between admin-buttons">
+                        <a href="{{ route('threads.edit', $thread->id) }}" class="btn btn-warning me-2">Edit</a>
                         <form action="{{ route('threads.destroy', $thread->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
