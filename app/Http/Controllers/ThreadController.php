@@ -24,6 +24,12 @@ class ThreadController extends Controller
         if ($request->filled('rank')) {
             $query->where('rank', $request->rank);
         }
+
+        // Filter out inactive threads for non-admin users
+        if (!auth()->check() || !auth()->user()->isAdmin()) {
+            $query->where('is_active', true);
+        }
+
         $ranks = [
             'Iron 1', 'Iron 2', 'Iron 3',
             'Bronze 1', 'Bronze 2', 'Bronze 3',
@@ -35,6 +41,7 @@ class ThreadController extends Controller
             'Immortal 1', 'Immortal 2', 'Immortal 3',
             'Radiant'
         ];
+
         $threads = $query->withCount('likes')->get();
         $categories = Category::all(); // Fetch all categories
 
