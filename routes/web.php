@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/threads/{thread}/edit', [ThreadController::class, 'edit'])->name('threads.edit');
     Route::put('/threads/{thread}', [ThreadController::class, 'update'])->name('threads.update');
     Route::delete('/threads/{thread}', [ThreadController::class, 'destroy'])->name('threads.destroy');
+
+    // User Settings
+    Route::get('/user/settings', [UserController::class, 'settings'])->name('user.settings');
+
+    Route::put('/user/updateEmail', [UserController::class, 'updateEmail'])->name('user.updateEmail');
+    Route::put('/user/updatePassword', [UserController::class, 'updatePassword'])->name('user.updatePassword');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
