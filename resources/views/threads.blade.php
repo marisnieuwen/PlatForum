@@ -63,14 +63,15 @@
         @endforeach
     </div>
     <!-- Check if user is logged in, otherwise tell user to log in -->
-    <!-- Check if user has required amount of likes -->
+    <!-- Check if user has required amount of likes, excluding admins -->
     @auth
     @php
     $userLikesCount = auth()->user()->likes->count();
     $minimumLikesRequired = 5;
+    $isAdmin = auth()->user()->isAdmin();
     @endphp
 
-    @if($userLikesCount >= $minimumLikesRequired)
+    @if($isAdmin || $userLikesCount >= $minimumLikesRequired)
     <a href="{{ route('threads.create') }}" class="btn btn-primary">Create New Thread</a>
     @else
     <p class="alert alert-warning">You need at least {{ $minimumLikesRequired }} likes to create a new thread. You
