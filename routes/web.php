@@ -42,4 +42,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/toggle-ban/{user}', [AdminController::class, 'toggleBan'])->name('admin.toggleBan');
     Route::get('/admin/toggle-admin/{user}', [AdminController::class, 'toggleAdmin'])->name('admin.toggleAdmin');
     Route::post('/admin/toggle-admin/{user}', [AdminController::class, 'toggleAdmin'])->name('admin.toggleAdmin');
+
+    Route::post('/admin/toggle-thread-active/{thread}', [AdminController::class, 'toggleThreadActive'])->name('admin.toggleThreadActive');
 });

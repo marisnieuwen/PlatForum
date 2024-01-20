@@ -25,23 +25,9 @@
             @endforeach
         </select>
 
-        <button type="submit">Filter</button>
+        <button class="btn btn-success" type="submit">Filter</button>
     </form>
 
-    <!-- <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Category</th>
-                <th>Rank</th>
-                <th>Posted At</th>
-                @if(auth()->user() && auth()->user()->hasRole('Admin'))
-                <th>Actions</th>
-                @endif
-            </tr>
-        </thead> -->
-    <!-- <tbody> -->
     <div class="row">
         @foreach($threads as $thread)
         <div class="col-md-3 mb-4">
@@ -62,6 +48,10 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
+                        <form action="{{ route('admin.toggleThreadActive', $thread->id) }}" method="POST" style="display: inline-block;">
+                            @csrf
+                            <input type="checkbox" class="toggle-class" data-id="{{ $thread->id }}" data-toggle="toggle" data-onstyle="info" data-offstyle="secondary" data-on="Active" data-off="Inactive" onchange="this.form.submit()" {{ $thread->is_active ? 'checked' : '' }}>
+                        </form>
                     </div>
                     @endif
                 </div>
@@ -70,7 +60,7 @@
         @endforeach
     </div>
     @auth
-    <!-- Check if the user is authenticated -->
+    <!-- Check if the user is logged in, otherwise tell user to log in -->
     <a href="{{ route('threads.create') }}" class="btn btn-primary">Create New Thread</a>
     @else
     <a href="{{ route('login') }}" class="btn btn-primary">Login to Create New Thread</a>

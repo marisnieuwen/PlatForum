@@ -8,7 +8,6 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -17,35 +16,23 @@
             <tr>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
-                <td>{{ $user->is_active ? 'Active' : 'Inactive' }}</td>
                 <td>
                     @if(auth()->id() !== $user->id)
-                    <form action="{{ route('admin.toggleBan', $user->id) }}" method="POST">
+                    <!-- Place both forms inside the same <td> and use inline-block display -->
+                    <form action="{{ route('admin.toggleAdmin', $user->id) }}" method="POST"
+                        style="display: inline-block; margin-right: 10px;">
                         @csrf
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitchBan{{ $user->id }}"
-                                {{ $user->is_banned ? 'checked' : '' }} onchange="this.form.submit()">
-                            <label class="custom-control-label" for="customSwitchBan{{ $user->id }}"> <span
-                                    class="toggle-text">{{ $user->is_banned ? 'Unban' : 'Ban' }}</span>
-                            </label>
-                        </div>
+                        <input type="checkbox" class="toggle-class" data-id="{{ $user->id }}" data-toggle="toggle"
+                            data-onstyle="info" data-offstyle="secondary" data-on="Admin" data-off="User"
+                            onchange="this.form.submit()" {{ $user->isAdmin() ? 'checked' : '' }}>
                     </form>
-                    @endif
-                    </form>
-                    <form action="{{ route('admin.toggleBan', $user->id) }}" method="POST">
+
+                    <form action="{{ route('admin.toggleBan', $user->id) }}" method="POST"
+                        style="display: inline-block;">
                         @csrf
-                    </form>
-                    @if(auth()->id() !== $user->id)
-                    <form action="{{ route('admin.toggleAdmin', $user->id) }}" method="POST">
-                        @csrf
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitchAdmin{{ $user->id }}"
-                                {{ $user->hasRole('Admin') ? 'checked' : '' }} onchange="this.form.submit()">
-                            <label class="custom-control-label" for="customSwitchAdmin{{ $user->id }}">
-                                <span
-                                    class="toggle-text">{{ $user->hasRole('Admin') ? 'Remove Admin' : 'Make Admin' }}</span>
-                            </label>
-                        </div>
+                        <input type="checkbox" class="toggle-class" data-id="{{ $user->id }}" data-toggle="toggle"
+                            data-onstyle="warning" data-offstyle="danger" data-on="Unban" data-off="Ban"
+                            onchange="this.form.submit()" {{ $user->is_banned ? 'checked' : '' }}>
                     </form>
                     @endif
                 </td>
@@ -54,21 +41,4 @@
         </tbody>
     </table>
 </div>
-@endsection
-
-
-
-@section('scripts')
-<script>
-function updateToggleText(element) {
-    let label = element.nextElementSibling;
-    let textSpan = label.querySelector('.toggle-text');
-
-    if (element.checked) {
-        textSpan.textContent = 'Unban';
-    } else {
-        textSpan.textContent = 'Ban';
-    }
-}
-</script>
 @endsection

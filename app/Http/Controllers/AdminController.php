@@ -18,16 +18,6 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('users'));
     }
 
-
-    // public function toggleActive($userId)
-    // {
-    //     $user = User::find($userId);
-    //     $user->is_active = !$user->is_active;
-    //     $user->save();
-
-    //     return back()->with('success', 'User status updated.');
-    // }
-
     public function toggleBan($userId)
     {
         // Prevent a user from banning themselves
@@ -83,5 +73,18 @@ class AdminController extends Controller
         $thread->delete();
 
         return redirect()->route('admin.threads')->with('success', 'Thread deleted successfully');
+    }
+
+    public function toggleThreadActive(Request $request, Thread $thread)
+    {
+        // Check if the user is an admin before proceeding
+        if (!auth()->user()->hasRole('admin')) {
+            return back()->with('error', 'Unauthorized action.');
+        }
+
+        $thread->is_active = !$thread->is_active;
+        $thread->save();
+
+        return back()->with('success', 'Thread status updated.');
     }
 }
