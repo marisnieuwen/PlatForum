@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container content-container">
     <h1>Threads</h1>
 
     <form action="{{ route('threads.index') }}" method="GET">
@@ -35,18 +35,21 @@
                 <div class="card-body">
                     <h5 class="card-title"><a href="{{ route('threads.show', $thread->id) }}">{{ $thread->title }}</a>
                     </h5>
-                    <p class="card-text"><strong>Author:</strong> {{ $thread->user->name }}</p>
-                    <p class="card-text"><strong>Category:</strong> {{ $thread->category->name }}</p>
-                    <p class="card-text"><strong>Rank:</strong> {{ $thread->rank }}</p>
-                    <p class="card-text"><strong>Posted At:</strong> {{ $thread->created_at }}</p>
+                    <p class="card-text"> {{ $thread->user->name }}</p>
+                    <p class="card-text">{{ $thread->body }}</p>
+                    <small class="card-text text-muted">
+                        <span> {{ $thread->category->name }} </span>
+                        <span class="float-right"> {{ $thread->rank }} </span>
+                    </small>
+
                     @if (auth()->check() && (auth()->user()->hasRole('Admin') || auth()->user()->id ==
                     $thread->user_id))
-                    <div class="d-flex justify-content-start">
+                    <div class="mt-auto d-flex justify-content-between">
                         <a href="{{ route('threads.edit', $thread->id) }}" class="btn btn-primary me-2">Edit</a>
                         <form action="{{ route('threads.destroy', $thread->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger me-2">Delete</button>
                         </form>
                         <form action="{{ route('admin.toggleThreadActive', $thread->id) }}" method="POST" style="display: inline-block;">
                             @csrf
@@ -60,7 +63,7 @@
         @endforeach
     </div>
     @auth
-    <!-- Check if the user is logged in, otherwise tell user to log in -->
+    <!-- Check if the user is logged in, otherwise tell the user to log in -->
     <a href="{{ route('threads.create') }}" class="btn btn-primary">Create New Thread</a>
     @else
     <a href="{{ route('login') }}" class="btn btn-primary">Login to Create New Thread</a>

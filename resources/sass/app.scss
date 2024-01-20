@@ -7,26 +7,92 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
+/* Fonts */
+@import url('https://fonts.bunny.net/css?family=Nunito');
 
-.thread-card {
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* Variables */
+@import 'variables';
+
+/* Bootstrap */
+@import 'bootstrap/scss/bootstrap';
+
+/* Custom Styles */
+.navbar {
+    background-color: #292929;
+}
+
+.navbar-brand {
+    color: #FEFEFE;
+}
+
+.navbar-expand-md .navbar-nav .nav-link {
+    color: #FEFEFE;
+}
+
+body {
+    background-color: #111111;
+    color: #FEFEFE;
+}
+
+.content-container {
+    background-color: #292929;
+    padding: 20px;
     border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.thread-card .card-body {
-    padding: 15px;
+.row {
+    margin-top: 40px;
 }
 
-.thread-card .card-title a {
-    color: #007bff;
+.card {
+    background-color: #fdfdfd;
+    border: 1px solid #333333; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 13px;
+    margin-bottom: 20px;
+}
+
+
+.card-title a {
+    color: #ff4655; 
+    font-weight: bold;
     text-decoration: none;
 }
 
-.thread-card .card-title a:hover {
+.card-title a:hover {
     text-decoration: underline;
 }
 
-.thread-card .card-text {
+.card-text {
     margin-bottom: 10px;
+}
+
+.table {
+    background-color: #292929;
+    border: 1px solid #ffffff; 
+    border-radius: 13px;
+}
+
+.table tbody {
+    background-color: #292929 !important; /* Use !important to override any other conflicting styles */
+}
+
+.table thead th {
+    background-color: #292929 !important;
+    color: #ffffff;
+}
+
+.table td, .table th {
+    border-color: #ffffff;
+}
+
+.table tbody tr {
+    background-color: #292929 !important; /* Use !important to override any other conflicting styles */
+    color: #ffffff; /* Set text color to white for table rows */
+}
+
+.table tbody tr:hover {
+    background-color: #444444; 
 }
