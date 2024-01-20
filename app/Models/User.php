@@ -79,13 +79,13 @@ class User extends Authenticatable
     }
 
 
-    // Check if a user has a specific role
+    // Check if a user has a specific role, useful if there are multiple roles
     public function hasRole($role)
     {
         return $this->roles()->where('name', $role)->exists();
     }
 
-
+    // Check if a user is an admin
     public function isAdmin()
     {
         return $this->hasRole('admin');
