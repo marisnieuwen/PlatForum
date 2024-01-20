@@ -71,17 +71,20 @@ class User extends Authenticatable
         return $this->belongsToMany(Thread::class, 'likes');
     }
 
-    // Check if a user has a specific role
-    public function hasRole($role)
-    {
-        return $this->roles()->where('name', $role)->exists();
-    }
 
     // Define relationship with roles
     public function roles()
     {
         return $this->belongsToMany(Role::class);
     }
+
+
+    // Check if a user has a specific role
+    public function hasRole($role)
+    {
+        return $this->roles()->where('name', $role)->exists();
+    }
+
 
     public function isAdmin()
     {

@@ -5,6 +5,7 @@
     <h1 class="forum-thread-title">{{ $thread->title }}</h1>
     <div class="forum-thread-details d-flex">
         <p class="forum-author">User: {{ $thread->user->name }}</p>
+        <p class="forum-posted-at">Posted: {{ $thread->created_at->diffForHumans() }}</p>
         <p class="forum-category">{{ $thread->category->name }}</p>
         <p class="forum-posted-at"> {{ $thread->rank }}</p>
     </div>
@@ -34,5 +35,9 @@
         <div class="like-count">{{ $thread->likes->count() }}</div> Likes
     </div>
     @endauth
+
+    <div class="mt-4">
+        <a href="{{ route('threads.index') }}" class="btn btn-secondary">Back to Threads</a>
+    </div>
 </div>
 @endsection

@@ -16,8 +16,20 @@ class ThreadController extends Controller
         $query = Thread::query();
 
         // Filter by category if provided
-        if ($request->filled('category_id')) {
-            $query->where('category_id', $request->category_id);
+        if ($request->has('category') && in_array($request->category, ['casual', 'competitive'])) {
+            $category = Category::where('name', $request->category)->first();
+            if ($category) {
+                $query->where('category_id', $category->id);
+            }
+        }
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $searchTerm = $request->input('search');
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('title', 'LIKE', '%' . $searchTerm . '%')
+                    ->orWhere('body', 'LIKE', '%' . $searchTerm . '%');
+            });
         }
 
         // Filter by rank if provided
@@ -116,9 +128,20 @@ class ThreadController extends Controller
 
     public function edit(Thread $thread)
     {
-        // Check if the user is either the thread's author or an admin
         if (auth()->check() && (auth()->user()->id == $thread->user_id || auth()->user()->isAdmin())) {
-            return view('edit', compact('thread'));
+            $categories = Category::all();
+            $ranks = [
+                'Iron 1', 'Iron 2', 'Iron 3',
+                'Bronze 1', 'Bronze 2', 'Bronze 3',
+                'Silver 1', 'Silver 2', 'Silver 3',
+                'Gold 1', 'Gold 2', 'Gold 3',
+                'Platinum 1', 'Platinum 2', 'Platinum 3',
+                'Diamond 1', 'Diamond 2', 'Diamond 3',
+                'Ascendant 1', 'Ascendant 2', 'Ascendant 3',
+                'Immortal 1', 'Immortal 2', 'Immortal 3',
+                'Radiant'
+            ];
+            return view('edit', compact('thread', 'categories', 'ranks'));
         } else {
             return redirect()->route('threads.index')->with('error', 'You are not authorized to edit this thread.');
         }

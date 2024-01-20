@@ -52,6 +52,13 @@ body {
     font-weight: bold;
 }
 
+.btn-outline-primary {
+    border-color: #ff4655;
+    color: #ff4655;
+    border-radius: 5px;
+    // font-weight: bold;
+}
+
 .content-container {
     background-color: #292929;
     padding: 20px;
@@ -230,3 +237,15 @@ button.btn-success:focus {
     background-color: #ff2e3e;
     border-color: #ff2e3e;
 }
+
+input::placeholder {
+    color: #FFFFFF !important;
+}
+
+/* Input field styles when focused */
+input.form-control:focus {
+    background-color: #292929; /* Change the background color when focused */
+    color: #FEFEFE; /* Change the text color when focused */
+    border-color: #292929; /* Change the border color when focused */
+}
+

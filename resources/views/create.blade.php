@@ -14,6 +14,9 @@
                         <div class="form-group">
                             <label for="title">Title:</label>
                             <input type="text" name="title" id="title" class="form-control">
+                            @error('title')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-group">
@@ -23,6 +26,9 @@
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
                             </select>
+                            @error('category_id')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-group">
@@ -32,11 +38,17 @@
                                 <option value="{{ $rank }}">{{ $rank }}</option>
                                 @endforeach
                             </select>
+                            @error('rank')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="body">Content:</label>
                             <textarea name="body" id="body" rows="4" class="form-control"></textarea>
+                            @error('body')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-group">
