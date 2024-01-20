@@ -96,3 +96,49 @@ body {
 .table tbody tr:hover {
     background-color: #444444; 
 }
+
+/* Styling for individual Threads */
+.forum-thread {
+    background-color: #292929;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #FEFEFE;
+}
+
+.forum-thread-title {
+    color: #ff4655;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.forum-thread-details {
+    margin-bottom: 20px;
+}
+
+.forum-author, .forum-category, .forum-posted-at {
+    margin-right: 20px;
+}
+
+.forum-thread-content {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.forum-thread-like-section {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.forum-thread-like-section button {
+    margin-right: 10px;
+}
+
+.like-count {
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 7px;
+}
